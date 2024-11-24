@@ -7,11 +7,8 @@ Streamline school management, class organization, and add students and faculty.<
 Seamlessly track attendance, assess performance, and provide feedback. <br>
 Access records, view marks, and communicate effortlessly.
 </h3>
-
 <br>
-[Youtube Video](https://youtu.be/ol650KwQkgY?si=rKcboqSv3n-e4UbC)
-<br><br>
-[LinkedIn](https://www.linkedin.com/in/yogndr/)
+[LinkedIn](www.linkedin.com/in/suchit-chaudhari)
 
 # About
 
@@ -40,9 +37,9 @@ The School Management System is a web-based application built using the MERN (Mo
 <br>
 
 # Installation
-
+https://github.com/spuffyffets/MERN-School-Management-System.git
 ```sh
-git clone https://github.com/Yogndrr/MERN-School-Management-System.git
+git clone https://github.com/spuffyffets/MERN-School-Management-System.git
 ```
 Open 2 terminals in separate windows/tabs.
 
@@ -91,10 +88,10 @@ After completing these steps, try signing up again. If the issue persists, follo
 2. Add the following line after the import statements:
 
 ```javascript
-const REACT_APP_BASE_URL = "http://localhost:5000";
+const process.env.REACT_APP_BASE_URL = "http://localhost:5000";
 ```
 
-3. Replace all instances of `process.env.REACT_APP_BASE_URL` with `REACT_APP_BASE_URL`.
+3. Replace all instances of `process.env.process.env.REACT_APP_BASE_URL` with `process.env.REACT_APP_BASE_URL`.
 
 **IMPORTANT:** Repeat the same process for all other files with "Handle" in their names.
 
@@ -123,7 +120,7 @@ When attempting to delete items, you may encounter a popup message stating, "Sor
 //     dispatch(getRequest());
 
 //     try {
-//         const result = await axios.delete(`${process.env.REACT_APP_BASE_URL}/${address}/${id}`);
+//         const result = await axios.delete(`${process.env.process.env.REACT_APP_BASE_URL}/${address}/${id}`);
 //         if (result.data.message) {
 //             dispatch(getFailed(result.data.message));
 //         } else {
