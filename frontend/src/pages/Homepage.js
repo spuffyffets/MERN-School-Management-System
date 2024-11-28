@@ -8,12 +8,12 @@ import { LightPurpleButton } from '../components/buttonStyles';
 const Homepage = () => {
     return (
         <StyledContainer>
-            <Grid container spacing={0}>
+            <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <img src={Students} alt="students" style={{ width: '100%' }} />
+                    <StyledImage src={Students} alt="students" />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <StyledPaper elevation={3}>
+                    <StyledPaper>
                         <StyledTitle>
                             Welcome to
                             <br />
@@ -28,20 +28,18 @@ const Homepage = () => {
                         </StyledText>
                         <StyledBox>
                             <StyledLink to="/choose">
-                                <LightPurpleButton variant="contained" fullWidth>
+                                <StyledButton variant="contained" fullWidth>
                                     Login
-                                </LightPurpleButton>
+                                </StyledButton>
                             </StyledLink>
                             <StyledLink to="/chooseasguest">
-                                <Button variant="outlined" fullWidth
-                                    sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
-                                >
+                                <StyledOutlinedButton variant="outlined" fullWidth>
                                     Login as Guest
-                                </Button>
+                                </StyledOutlinedButton>
                             </StyledLink>
                             <StyledText>
                                 Don't have an account?{' '}
-                                <Link to="/Adminregister" style={{color:"#550080"}}>
+                                <Link to="/Adminregister" style={{ color: "#5D3FD3", fontWeight: "bold" }}>
                                     Sign up
                                 </Link>
                             </StyledText>
@@ -55,45 +53,108 @@ const Homepage = () => {
 
 export default Homepage;
 
-const StyledContainer = styled(Container)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+// Styled Components
+const StyledContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensures it works well on smaller screens */
+    width: 100%;
+    background: linear-gradient(135deg, #E8F6EF, #AED9E0, #5D3FD3);
+    color: #252525;
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    overflow: hidden; /* Prevent unnecessary scrolling */
+    box-sizing: border-box; /* Include padding/border in dimensions */
 `;
 
+// Paper with responsive height and padding
 const StyledPaper = styled.div`
-  padding: 24px;
-  height: 100vh;
+    padding: 16px 24px; /* Reduced padding for smaller screens */
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Responsive width */
+    max-width: 600px; /* Constrain maximum width for larger screens */
 `;
 
+// Box with centered content
 const StyledBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content:center;
-  gap: 16px;
-  padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 24px;
+    width: 100%;
 `;
 
+// Title with responsive font size
 const StyledTitle = styled.h1`
-  font-size: 3rem;
-  color: #252525;
-  /* font-family: "Manrope"; */
-  font-weight: bold;
-  padding-top: 0;
-  letter-spacing: normal;
-  line-height: normal;
+    font-size: 2rem;
+    color: #5D3FD3;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    @media (min-width: 768px) {
+        font-size: 2.5rem; /* Increase size on larger screens */
+    }
 `;
 
+// Paragraph with better spacing and alignment
 const StyledText = styled.p`
-  /* color: #550080; */
-  margin-top: 30px;
-  margin-bottom: 30px; 
-  letter-spacing: normal;
-  line-height: normal;
+    font-size: 1rem;
+    color: #4F4F4F;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0 0 16px 0; /* Add bottom margin for spacing */
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
+// Responsive image
+const StyledImage = styled.img`
+    width: 80%; /* Adjust the width to 80% of its container */
+    max-width: 800px; /* Set a larger max width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image doesn't overflow */
+    margin-left: 50px; /* Adds 50px of space from the left */
+    padding: 0;
+    box-sizing: border-box;
 `;
+
+
+// Gradient button with better hover effect
+const StyledButton = styled(Button)`
+    background: linear-gradient(90deg, #5D3FD3, #AED9E0);
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 8px;
+    &:hover {
+        background: linear-gradient(90deg, #AED9E0, #5D3FD3);
+    }
+`;
+
+// Outlined button with hover effects
+const StyledOutlinedButton = styled(Button)`
+    color: #5D3FD3;
+    border: 2px solid #5D3FD3;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    &:hover {
+        border-color: #AED9E0;
+        color: #AED9E0;
+    }
+`;
+
+// Link without underline
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    font-weight: 600;
+    color: #5D3FD3;
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+

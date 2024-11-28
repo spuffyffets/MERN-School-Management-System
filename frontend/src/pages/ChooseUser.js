@@ -15,23 +15,23 @@ import { loginUser } from '../redux/userRelated/userHandle';
 import Popup from '../components/Popup';
 
 const ChooseUser = ({ visitor }) => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const password = "zxc"
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const password = "zxc";
 
-  const { status, currentUser, currentRole } = useSelector(state => state.user);;
+  const { status, currentUser, currentRole } = useSelector(state => state.user);
 
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
   const navigateHandler = (user) => {
     if (user === "Admin") {
       if (visitor === "guest") {
-        const email = "yogendra@12"
-        const fields = { email, password }
-        setLoader(true)
-        dispatch(loginUser(fields, user))
+        const email = "yogendra@12";
+        const fields = { email, password };
+        setLoader(true);
+        dispatch(loginUser(fields, user));
       }
       else {
         navigate('/Adminlogin');
@@ -40,11 +40,11 @@ const ChooseUser = ({ visitor }) => {
 
     else if (user === "Student") {
       if (visitor === "guest") {
-        const rollNum = "1"
-        const studentName = "Dipesh Awasthi"
-        const fields = { rollNum, studentName, password }
-        setLoader(true)
-        dispatch(loginUser(fields, user))
+        const rollNum = "1";
+        const studentName = "Dipesh Awasthi";
+        const fields = { rollNum, studentName, password };
+        setLoader(true);
+        dispatch(loginUser(fields, user));
       }
       else {
         navigate('/Studentlogin');
@@ -53,10 +53,10 @@ const ChooseUser = ({ visitor }) => {
 
     else if (user === "Teacher") {
       if (visitor === "guest") {
-        const email = "tony@12"
-        const fields = { email, password }
-        setLoader(true)
-        dispatch(loginUser(fields, user))
+        const email = "tony@12";
+        const fields = { email, password };
+        setLoader(true);
+        dispatch(loginUser(fields, user));
       }
       else {
         navigate('/Teacherlogin');
@@ -76,9 +76,9 @@ const ChooseUser = ({ visitor }) => {
       }
     }
     else if (status === 'error') {
-      setLoader(false)
-      setMessage("Network Error")
-      setShowPopup(true)
+      setLoader(false);
+      setMessage("Network Error");
+      setShowPopup(true);
     }
   }, [status, currentRole, navigate, currentUser]);
 
@@ -100,8 +100,8 @@ const ChooseUser = ({ visitor }) => {
             </div>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Student")}>
+            <div onClick={() => navigateHandler("Student")}>
+              <StyledPaper elevation={3}>
                 <Box mb={2}>
                   <School fontSize="large" />
                 </Box>
@@ -109,12 +109,12 @@ const ChooseUser = ({ visitor }) => {
                   Student
                 </StyledTypography>
                 Login as a student to explore course materials and assignments.
-              </div>
-            </StyledPaper>
+              </StyledPaper>
+            </div>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Teacher")}>
+            <div onClick={() => navigateHandler("Teacher")}>
+              <StyledPaper elevation={3}>
                 <Box mb={2}>
                   <Group fontSize="large" />
                 </Box>
@@ -122,8 +122,8 @@ const ChooseUser = ({ visitor }) => {
                   Teacher
                 </StyledTypography>
                 Login as a teacher to create courses, assignments, and track student progress.
-              </div>
-            </StyledPaper>
+              </StyledPaper>
+            </div>
           </Grid>
         </Grid>
       </Container>
@@ -142,26 +142,33 @@ const ChooseUser = ({ visitor }) => {
 export default ChooseUser;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #411d70, #19118b);
-  height: 120vh;
+  background: linear-gradient(135deg, #5D3FD3, #3E9FB9);
+  height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  align-items: center;
+  padding: 3rem;
 `;
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
   text-align: center;
-  background-color: #1f1f38;
-  color:rgba(255, 255, 255, 0.6);
-  cursor:pointer;
+  background-color: #2c2c6c;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #2c2c6c;
-    color:white;
+    background-color: #4e4e7a;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   }
 `;
 
 const StyledTypography = styled.h2`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
 `;
+
