@@ -19,7 +19,7 @@ const ChooseUser = ({ visitor }) => {
   const navigate = useNavigate();
   const password = "zxc";
 
-  const { status, currentUser, currentRole } = useSelector(state => state.user);
+  const { status, currentUser, currentRole } = useSelector((state) => state.user);
 
   const [loader, setLoader] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -32,50 +32,41 @@ const ChooseUser = ({ visitor }) => {
         const fields = { email, password };
         setLoader(true);
         dispatch(loginUser(fields, user));
-      }
-      else {
+      } else {
         navigate('/Adminlogin');
       }
-    }
-
-    else if (user === "Student") {
+    } else if (user === "Student") {
       if (visitor === "guest") {
         const rollNum = "1";
         const studentName = "Dipesh Awasthi";
         const fields = { rollNum, studentName, password };
         setLoader(true);
         dispatch(loginUser(fields, user));
-      }
-      else {
+      } else {
         navigate('/Studentlogin');
       }
-    }
-
-    else if (user === "Teacher") {
+    } else if (user === "Teacher") {
       if (visitor === "guest") {
         const email = "tony@12";
         const fields = { email, password };
         setLoader(true);
         dispatch(loginUser(fields, user));
-      }
-      else {
+      } else {
         navigate('/Teacherlogin');
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (status === 'success' || currentUser !== null) {
       if (currentRole === 'Admin') {
         navigate('/Admin/dashboard');
-      }
-      else if (currentRole === 'Student') {
+      } else if (currentRole === 'Student') {
         navigate('/Student/dashboard');
       } else if (currentRole === 'Teacher') {
         navigate('/Teacher/dashboard');
       }
-    }
-    else if (status === 'error') {
+    } else if (status === 'error') {
       setLoader(false);
       setMessage("Network Error");
       setShowPopup(true);
@@ -85,55 +76,56 @@ const ChooseUser = ({ visitor }) => {
   return (
     <StyledContainer>
       <Container>
-        <Grid container spacing={2} justifyContent="center">
+        <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
-            <div onClick={() => navigateHandler("Admin")}>
-              <StyledPaper elevation={3}>
-                <Box mb={2}>
-                  <AccountCircle fontSize="large" />
-                </Box>
-                <StyledTypography>
-                  Admin
-                </StyledTypography>
+            <StyledPaper onClick={() => navigateHandler("Admin")}>
+              <Box mb={3}>
+                <AccountCircle fontSize="large" />
+              </Box>
+              <StyledTypography variant="h6">
+                Admin
+              </StyledTypography>
+              <StyledDescription>
                 Login as an administrator to access the dashboard to manage app data.
-              </StyledPaper>
-            </div>
+              </StyledDescription>
+            </StyledPaper>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
-            <div onClick={() => navigateHandler("Student")}>
-              <StyledPaper elevation={3}>
-                <Box mb={2}>
-                  <School fontSize="large" />
-                </Box>
-                <StyledTypography>
-                  Student
-                </StyledTypography>
+            <StyledPaper onClick={() => navigateHandler("Student")}>
+              <Box mb={3}>
+                <School fontSize="large" />
+              </Box>
+              <StyledTypography variant="h6">
+                Student
+              </StyledTypography>
+              <StyledDescription>
                 Login as a student to explore course materials and assignments.
-              </StyledPaper>
-            </div>
+              </StyledDescription>
+            </StyledPaper>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
-            <div onClick={() => navigateHandler("Teacher")}>
-              <StyledPaper elevation={3}>
-                <Box mb={2}>
-                  <Group fontSize="large" />
-                </Box>
-                <StyledTypography>
-                  Teacher
-                </StyledTypography>
+            <StyledPaper onClick={() => navigateHandler("Teacher")}>
+              <Box mb={3}>
+                <Group fontSize="large" />
+              </Box>
+              <StyledTypography variant="h6">
+                Teacher
+              </StyledTypography>
+              <StyledDescription>
                 Login as a teacher to create courses, assignments, and track student progress.
-              </StyledPaper>
-            </div>
+              </StyledDescription>
+            </StyledPaper>
           </Grid>
         </Grid>
       </Container>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loader}
-      >
+
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loader}>
         <CircularProgress color="inherit" />
-        Please Wait
+        Please Wait...
       </Backdrop>
+
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
     </StyledContainer>
   );
@@ -153,15 +145,15 @@ const StyledContainer = styled.div`
 const StyledPaper = styled(Paper)`
   padding: 20px;
   text-align: center;
-  background-color: #2c2c6c;
-  color: rgba(255, 255, 255, 0.9);
+  background-color: #f5f5f5; /* Light gray for better contrast */
+  color: #000000; /* Black text for visibility */
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 
   &:hover {
-    background-color: #4e4e7a;
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background-color: #e0e0e0; /* Slightly darker gray on hover */
+    color: #000000; /* Keep black text */
   }
 `;
 
@@ -169,6 +161,11 @@ const StyledTypography = styled.h2`
   margin-bottom: 15px;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #000000; /* Ensure text is always black */
 `;
 
+const StyledDescription = styled.p`
+  color: rgba(0, 0, 0, 0.7); /* Slightly faded black for description */
+  font-size: 0.95rem;
+  margin-top: 10px;
+`;
