@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Grid,
-  Paper,
-  Box,
-  Container,
-  CircularProgress,
-  Backdrop,
-} from '@mui/material';
-import { AccountCircle, School, Group } from '@mui/icons-material';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/userRelated/userHandle';
+import { Container, CircularProgress, Backdrop } from '@mui/material';
+import styled from 'styled-components';
 import Popup from '../components/Popup';
+import adminIcon from '../assets/admin.svg';
+import studentIcon from '../assets/student-logo.svg';
+import teacherIcon from '../assets/teacher-001.svg';
+import logo from '../assets/school.svg';
 
 const ChooseUser = ({ visitor }) => {
   const dispatch = useDispatch();
@@ -20,7 +16,6 @@ const ChooseUser = ({ visitor }) => {
   const password = "zxc";
 
   const { status, currentUser, currentRole } = useSelector((state) => state.user);
-
   const [loader, setLoader] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
@@ -28,8 +23,7 @@ const ChooseUser = ({ visitor }) => {
   const navigateHandler = (user) => {
     if (user === "Admin") {
       if (visitor === "guest") {
-        const email = "yogendra@12";
-        const fields = { email, password };
+        const fields = { email: "yogendra@12", password };
         setLoader(true);
         dispatch(loginUser(fields, user));
       } else {
@@ -37,9 +31,7 @@ const ChooseUser = ({ visitor }) => {
       }
     } else if (user === "Student") {
       if (visitor === "guest") {
-        const rollNum = "1";
-        const studentName = "Dipesh Awasthi";
-        const fields = { rollNum, studentName, password };
+        const fields = { rollNum: "1", studentName: "Dipesh Awasthi", password };
         setLoader(true);
         dispatch(loginUser(fields, user));
       } else {
@@ -47,8 +39,7 @@ const ChooseUser = ({ visitor }) => {
       }
     } else if (user === "Teacher") {
       if (visitor === "guest") {
-        const email = "tony@12";
-        const fields = { email, password };
+        const fields = { email: "tony@12", password };
         setLoader(true);
         dispatch(loginUser(fields, user));
       } else {
@@ -59,13 +50,7 @@ const ChooseUser = ({ visitor }) => {
 
   useEffect(() => {
     if (status === 'success' || currentUser !== null) {
-      if (currentRole === 'Admin') {
-        navigate('/Admin/dashboard');
-      } else if (currentRole === 'Student') {
-        navigate('/Student/dashboard');
-      } else if (currentRole === 'Teacher') {
-        navigate('/Teacher/dashboard');
-      }
+      navigate(`/${currentRole}/dashboard`);
     } else if (status === 'error') {
       setLoader(false);
       setMessage("Network Error");
@@ -74,98 +59,91 @@ const ChooseUser = ({ visitor }) => {
   }, [status, currentRole, navigate, currentUser]);
 
   return (
-    <StyledContainer>
-      <Container>
-        <Grid container spacing={3} justifyContent="center">
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper onClick={() => navigateHandler("Admin")}>
-              <Box mb={3}>
-                <AccountCircle fontSize="large" />
-              </Box>
-              <StyledTypography variant="h6">
-                Admin
-              </StyledTypography>
-              <StyledDescription>
-                Login as an administrator to access the dashboard to manage app data.
-              </StyledDescription>
-            </StyledPaper>
-          </Grid>
+    <MainContainer>
+      <Logo src={logo} alt="App Logo" />
+      <UserContainer>
+        <UserCard onClick={() => navigateHandler("Admin")}>
+          <UserIcon src={adminIcon} alt="Admin Icon" />
+          <UserTitle>Admin</UserTitle>
+          <UserDesc>Manage system settings and users.</UserDesc>
+        </UserCard>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper onClick={() => navigateHandler("Student")}>
-              <Box mb={3}>
-                <School fontSize="large" />
-              </Box>
-              <StyledTypography variant="h6">
-                Student
-              </StyledTypography>
-              <StyledDescription>
-                Login as a student to explore course materials and assignments.
-              </StyledDescription>
-            </StyledPaper>
-          </Grid>
+        <UserCard onClick={() => navigateHandler("Student")}>
+          <UserIcon src={studentIcon} alt="Student Icon" />
+          <UserTitle>Student</UserTitle>
+          <UserDesc>Access courses, assignments, and resources.</UserDesc>
+        </UserCard>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper onClick={() => navigateHandler("Teacher")}>
-              <Box mb={3}>
-                <Group fontSize="large" />
-              </Box>
-              <StyledTypography variant="h6">
-                Teacher
-              </StyledTypography>
-              <StyledDescription>
-                Login as a teacher to create courses, assignments, and track student progress.
-              </StyledDescription>
-            </StyledPaper>
-          </Grid>
-        </Grid>
-      </Container>
+        <UserCard onClick={() => navigateHandler("Teacher")}>
+          <UserIcon src={teacherIcon} alt="Teacher Icon" />
+          <UserTitle>Teacher</UserTitle>
+          <UserDesc>Manage courses and student progress.</UserDesc>
+        </UserCard>
+      </UserContainer>
 
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loader}>
         <CircularProgress color="inherit" />
-        Please Wait...
       </Backdrop>
 
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
-    </StyledContainer>
+    </MainContainer>
   );
 };
 
 export default ChooseUser;
 
-const StyledContainer = styled.div`
-  background: linear-gradient(135deg, #5D3FD3, #3E9FB9);
+const MainContainer = styled.div`
+   background: linear-gradient(135deg, #E8F6EF, #AED9E0, #5D3FD3);
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 3rem;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
 `;
 
-const StyledPaper = styled(Paper)`
-  padding: 20px;
+const Logo = styled.img`
+  margin-top:-150px;
+  width: 150px;
+  margin-bottom: 2rem;
+`;
+
+const UserContainer = styled.div`
+  margin-top:100px;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+`;
+
+const UserCard = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #4B4B4B;
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
   text-align: center;
-  background-color: #f5f5f5; /* Light gray for better contrast */
-  color: #000000; /* Black text for visibility */
+  width: 250px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
-    background-color: #e0e0e0; /* Slightly darker gray on hover */
-    color: #000000; /* Keep black text */
+    transform: scale(1.05);
   }
 `;
 
-const StyledTypography = styled.h2`
-  margin-bottom: 15px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #000000; /* Ensure text is always black */
+const UserIcon = styled.img`
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
 `;
 
-const StyledDescription = styled.p`
-  color: rgba(0, 0, 0, 0.7); /* Slightly faded black for description */
-  font-size: 0.95rem;
-  margin-top: 10px;
+const UserTitle = styled.h2`
+  font-size: 1.5rem;
+  color: #FFFFFF;
+`;
+
+const UserDesc = styled.p`
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
 `;
