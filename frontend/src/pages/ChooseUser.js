@@ -93,57 +93,86 @@ const ChooseUser = ({ visitor }) => {
 export default ChooseUser;
 
 const MainContainer = styled.div`
-   background: linear-gradient(135deg, #E8F6EF, #AED9E0, #5D3FD3);
-  height: 100vh;
+  background: linear-gradient(135deg, #E8F6EF, #AED9E0, #5D3FD3);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 `;
 
 const Logo = styled.img`
-  margin-top:-150px;
-  width: 150px;
-  margin-bottom: 2rem;
+  width: 120px;
+  margin-top: -100px;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    width: 90px;
+    margin-top: -50px;
+  }
 `;
 
 const UserContainer = styled.div`
-  margin-top:100px;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 const UserCard = styled.div`
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid #4B4B4B;
   backdrop-filter: blur(10px);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   text-align: center;
-  width: 250px;
+  width: 230px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
   }
+
+  @media (max-width: 480px) {
+    width: 90%;
+    padding: 1rem;
+  }
 `;
 
 const UserIcon = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 const UserTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #FFFFFF;
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const UserDesc = styled.p`
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
+
